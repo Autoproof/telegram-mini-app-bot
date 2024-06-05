@@ -1,0 +1,10 @@
+services:
+  ap-telegram-mini-app-bot:
+    image: us-central1-docker.pkg.dev/local-pier-386815/autoproof/ap-telegram-mini-app-bot:${GITHUB_SHA}
+    volumes:
+      - /root/logs:/var/log
+    environment: &ap-telegram-mini-app-bot-environment
+      - DEBUG=False
+      - BOT_TOKEN # SECRET
+
+    entrypoint: [ "python", "bot.py" ]

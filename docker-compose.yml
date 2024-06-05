@@ -1,0 +1,11 @@
+services:
+  ap-telegram-mini-app-bot:
+    platform: linux/amd64
+    build:
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/var/log
+    restart: unless-stopped
+    entrypoint: [ "python", "bot.py" ]
