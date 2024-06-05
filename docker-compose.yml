@@ -8,4 +8,4 @@ services:
     volumes:
       - ./logs:/var/log
     restart: unless-stopped
-    entrypoint: [ "python", "bot.py" ]
+    entrypoint: [ "python", "main.py" ]
