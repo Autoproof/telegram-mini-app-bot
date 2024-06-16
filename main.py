@@ -32,7 +32,7 @@ async def command_start_handler(message: Message) -> None:
     try:
         logger.info(f'Received message from {message.from_user.username}: {message.text}')
         keyboard = [[InlineKeyboardButton(text="Open Autoproof 📃 34,521",
-                                          web_app=WebAppInfo(url="https://loon-holy-noticeably.ngrok-free.app"))]]
+                                          web_app=WebAppInfo(url=Settings.bot_web_app_link()))]]
         keyboard = InlineKeyboardMarkup(
             resize_keyboard=True,
             inline_keyboard=keyboard)

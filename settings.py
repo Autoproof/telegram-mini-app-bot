@@ -14,3 +14,7 @@ class Settings:
     @staticmethod
     def bot_token():
         return os.environ.get(f"BOT_TOKEN")
+
+    @staticmethod
+    def bot_web_app_link():
+        return os.environ.get(f"BOT_WEB_APP_LINK", "https://autoproof.dev")
