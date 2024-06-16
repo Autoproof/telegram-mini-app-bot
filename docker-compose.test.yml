@@ -6,5 +6,6 @@ services:
     environment: &ap-telegram-mini-app-bot-environment
       - DEBUG=False
       - BOT_TOKEN # SECRET
+      - BOT_WEB_APP_LINK # SECRET
 
     entrypoint: [ "python", "bot.py" ]
