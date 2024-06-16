@@ -18,7 +18,7 @@ from settings import Settings
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-handler = RotatingFileHandler('logs/conf-bot.log', maxBytes=100000, backupCount=5)
+handler = RotatingFileHandler(Settings.rotate_log_file(), maxBytes=100000, backupCount=5)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 logger.addHandler(handler)

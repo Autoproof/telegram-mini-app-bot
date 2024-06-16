@@ -8,5 +8,9 @@ class Settings:
         return os.environ.get(f"ADMIN_ID", default=75771603)
 
     @staticmethod
+    def rotate_log_file():
+        return os.environ.get(f"BOT_ROTATE_LOG_FILE", default="/var/log/ap-bot.log")
+
+    @staticmethod
     def bot_token():
         return os.environ.get(f"BOT_TOKEN")
