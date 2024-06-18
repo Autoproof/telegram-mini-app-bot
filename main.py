@@ -37,7 +37,7 @@ async def command_start_handler(message: Message) -> None:
             resize_keyboard=True,
             inline_keyboard=keyboard)
 
-        new_message = await message.reply("Push the button below to start", reply_markup=keyboard)
+        new_message = await message.reply("Push the button below to start Autoproof", reply_markup=keyboard)
         try:
             await message.bot(PinChatMessage(chat_id=message.chat.id, message_id=new_message.message_id))
         except Exception as e:
