@@ -1,7 +1,7 @@
 name: 🦾 Bot deploy to test 34.42.21.49 # Test mini app bot server
 
 env:
-  DOCKER_COMPOSE_FILE: docker-compose.test.yml
+  DOCKER_COMPOSE_FILE: docker-compose.prod.yml
   DOCKER_CONTEXT_HOST: ssh://root@34.42.21.49
 
 
@@ -52,8 +52,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     env:
-      BOT_TOKEN: ${{ secrets.TEST_BOT_TOKEN }}
-      BOT_WEB_APP_LINK: ${{ secrets.TEST_BOT_WEB_APP_LINK }}
+      BOT_TOKEN: ${{ secrets.PROD_BOT_TOKEN }}
+      BOT_WEB_APP_LINK: ${{ secrets.PROD_BOT_WEB_APP_LINK }}
 
     steps:
       - name: Checkout code
@@ -77,23 +77,23 @@ jobs:
         with:
           docker_host: ${{ env.DOCKER_CONTEXT_HOST }}
           context_name: 'autoproof-mini-app-bot-ctx'
-          ssh_cert: ${{ secrets.TEST_BOT_DEPLOY_SSH_CERT }}
-          ssh_key: ${{ secrets.TEST_BOT_DEPLOY_SSH_KEY }}
+          ssh_cert: ${{ secrets.PROD_BOT_DEPLOY_SSH_CERT }}
+          ssh_key: ${{ secrets.PROD_BOT_DEPLOY_SSH_KEY }}
 
       - name: Empty .env file
         run: touch .env
 
       - name: Shutdown all services
         if: ${{ inputs.full_recreate }}
-        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} --name bot-test down
+        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} --name bot-prod down
 
       - name: Start all services
         if: ${{ inputs.full_recreate }}
-        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} --name bot-test up -d
+        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} --name bot-prod up -d
 
       - name: Recreate `ap-mvp` and `ap-celery` services
         if: ${{ ! inputs.full_recreate }}
-        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} up -d --force-recreate --name bot-test ap-telegram-mini-app-bot
+        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} up -d --force-recreate --name bot-prod ap-telegram-mini-app-bot
 
       - name: Remove old images and resources
         run: docker --context autoproof-mini-app-bot-ctx system prune -af
