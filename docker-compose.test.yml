@@ -1,6 +1,7 @@
 services:
   ap-telegram-mini-app-bot:
     image: us-central1-docker.pkg.dev/local-pier-386815/autoproof/ap-telegram-mini-app-bot:${GITHUB_SHA}
+    container_name: bot-test
     volumes:
       - /root/logs:/var/log
     environment: &ap-telegram-mini-app-bot-environment

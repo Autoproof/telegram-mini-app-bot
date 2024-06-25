@@ -85,15 +85,15 @@ jobs:
 
       - name: Shutdown all services
         if: ${{ inputs.full_recreate }}
-        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} --name bot-test down
+        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} down
 
       - name: Start all services
         if: ${{ inputs.full_recreate }}
-        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} --name bot-test up -d
+        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} up -d
 
       - name: Recreate `ap-mvp` and `ap-celery` services
         if: ${{ ! inputs.full_recreate }}
-        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} up -d --force-recreate --name bot-test ap-telegram-mini-app-bot
+        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} up -d --force-recreate ap-telegram-mini-app-bot
 
       - name: Remove old images and resources
         run: docker --context autoproof-mini-app-bot-ctx system prune -af
