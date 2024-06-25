@@ -1,4 +1,4 @@
-name: 🦾 Bot deploy to test 34.42.21.49 # Test mini app bot server
+name: 🦾🦾🦾 Bot deploy to PROD 34.42.21.49 # prod mini app bot server
 
 env:
   DOCKER_COMPOSE_FILE: docker-compose.prod.yml
