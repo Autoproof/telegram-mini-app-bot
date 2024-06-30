@@ -44,7 +44,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: us-central1-docker.pkg.dev/local-pier-386815/autoproof/ap-telegram-mini-app-bot:${{ github.sha }}
+          tags: us-central1-docker.pkg.dev/local-pier-386815/autoproof/ap-telegram-mini-app-bot-test:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
