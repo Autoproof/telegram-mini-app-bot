@@ -1,5 +1,5 @@
 services:
-  ap-telegram-mini-app-bot:
+  ap-telegram-mini-app-bot-test:
     image: us-central1-docker.pkg.dev/local-pier-386815/autoproof/ap-telegram-mini-app-bot-test:${GITHUB_SHA}
     container_name: bot-test
     volumes:
