@@ -83,9 +83,9 @@ jobs:
       - name: Empty .env file
         run: touch .env
 
-      - name: Shutdown all services
+      - name: Stop previous container bot-test
         if: ${{ inputs.full_recreate }}
-        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} down
+        run: docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} stop bot-prod && docker --context autoproof-mini-app-bot-ctx compose -f docker-compose.yml -f ${{ env.DOCKER_COMPOSE_FILE }} rm bot-prod
 
       - name: Start all services
         if: ${{ inputs.full_recreate }}
