@@ -30,14 +30,43 @@ dp = Dispatcher()
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
     try:
+        text = "🌎 Global copyright protection and exclusive rights transfer – 🔐secure transactions between freelancers and clients 🤝\n\n" \
+               "🚀 Invite new clients to complete deals without leaving Telegram \n\n" \
+               "🧑🏻‍💻 Connect your colleagues to the new freelancer platform \n\n" \
+               "PS. Earn points and receive benefits, btw"
+
+        web_app_link = Settings.bot_web_app_link()
+        args = message.text.split(' ', 1)
+        try:
+            if args[1]:
+                action, instance_id = args[1].split('=', 1)
+                if action == "copyright" and instance_id:
+                    web_app_link += "?action=open_copyright&id=" + instance_id
+                    text += "\n\n\n\nNew copyright objects are available to you, to which you can claim exclusive rights now"
+        except:
+            pass
+
         logger.info(f'Received message from {message.from_user.username}: {message.text}')
-        keyboard = [[InlineKeyboardButton(text="Open Autoproof 📃 34,521",
-                                          web_app=WebAppInfo(url=Settings.bot_web_app_link()))]]
+
+        keyboard = [
+            [InlineKeyboardButton(text="Legal",
+                                  url="https://docs.autoproof.dev/"),
+            InlineKeyboardButton(text="About",
+                                  url="https://autoproof.dev/")]
+        ]
         keyboard = InlineKeyboardMarkup(
             resize_keyboard=True,
             inline_keyboard=keyboard)
 
-        new_message = await message.reply("Push the button below to start Autoproof", reply_markup=keyboard)
+        await message.reply(text, reply_markup=keyboard)
+        new_message = await message.reply("Open the app below 👇",
+                                          reply_markup=InlineKeyboardMarkup(
+                                              resize_keyboard=True,
+                                              inline_keyboard=[
+                                                  [InlineKeyboardButton(text="Open Autoproof 📃 34,521",
+                                                                        web_app=WebAppInfo(url=web_app_link))]
+                                              ]))
+
         try:
             await message.bot(PinChatMessage(chat_id=message.chat.id, message_id=new_message.message_id))
         except Exception as e:
