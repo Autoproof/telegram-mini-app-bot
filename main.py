@@ -12,7 +12,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message, KeyboardButton, WebAppInfo, ReplyKeyboardMarkup, InlineKeyboardMarkup, \
-    InlineKeyboardButton
+    InlineKeyboardButton, FSInputFile
 
 from settings import Settings
 
@@ -58,7 +58,10 @@ async def command_start_handler(message: Message) -> None:
             resize_keyboard=True,
             inline_keyboard=keyboard)
 
-        await message.reply(text, reply_markup=keyboard)
+        await message.bot.send_video(
+            chat_id=message.from_user.id, caption=text, parse_mode=ParseMode.HTML,
+            video=FSInputFile("media/onboarding_video.mp4"), reply_markup=keyboard)
+
         new_message = await message.reply("Open the app below 👇",
                                           reply_markup=InlineKeyboardMarkup(
                                               resize_keyboard=True,
