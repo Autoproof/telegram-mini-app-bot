@@ -29,6 +29,9 @@ dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
+
+    button_text = "Open Autoproof 📃"
+
     try:
         text = "🌎 Global copyright protection and exclusive rights transfer – 🔐secure transactions between freelancers and clients 🤝\n\n" \
                "🚀 Invite new clients to complete deals without leaving Telegram \n\n" \
@@ -41,6 +44,7 @@ async def command_start_handler(message: Message) -> None:
             if args[1]:
                 action, instance_id = args[1].split('=', 1)
                 if action == "copyright" and instance_id:
+                    button_text = "Open to claim your rights 🤝"
                     web_app_link += "?action=open_copyright&id=" + instance_id
                     text += "\n\n\n\nNew copyright objects are available to you, to which you can claim exclusive rights now"
         except:
@@ -66,7 +70,7 @@ async def command_start_handler(message: Message) -> None:
                                           reply_markup=InlineKeyboardMarkup(
                                               resize_keyboard=True,
                                               inline_keyboard=[
-                                                  [InlineKeyboardButton(text="Open Autoproof 📃 34,521",
+                                                  [InlineKeyboardButton(text=button_text,
                                                                         web_app=WebAppInfo(url=web_app_link))]
                                               ]))
 
