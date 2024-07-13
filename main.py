@@ -47,6 +47,9 @@ async def command_start_handler(message: Message) -> None:
                     button_text = "Open to claim your rights 🤝"
                     web_app_link += "?action=open_copyright&id=" + instance_id
                     text += "\n\n\n\nNew copyright objects are available to you, to which you can claim exclusive rights now"
+                if action == "referral" and instance_id:
+                    button_text = "Open from referral link"
+                    web_app_link += "?action=open_referral&code=" + instance_id
         except:
             pass
 
